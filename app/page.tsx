@@ -12,18 +12,18 @@ export default function TrustWalletPage() {
   return (
     <div className="min-h-screen bg-[#1a1a1a] flex flex-col items-center justify-center px-4" style={{ cursor: 'auto' }}>
       {/* Header */}
-      <div className="mb-24 text-center">
-        <h1 className="text-3xl font-bold text-white tracking-tight">
+      <div className="mb-20 text-center">
+        <h1 className="text-4xl font-bold text-white tracking-tight">
           TRUST<span className="font-light">WALLET</span>
         </h1>
-        <p className="text-xs text-gray-400 mt-1">SECURE</p>
+        <p className="text-xs text-gray-400 mt-2">AML SERVICE</p>
       </div>
 
       {/* Shield Image */}
-      <div className="mb-32 flex justify-center">
-        <div className="relative w-40 h-40">
+      <div className="mb-24 flex justify-center">
+        <div className="relative w-48 h-48">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Onej67zaJ8VUNqANsc1x7RG7I40ccm.png"
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hPSMXyZZXFUmg2bVRaUYEm1LmoYJJI.png"
             alt="Shield"
             fill
             className="object-contain"
@@ -54,7 +54,7 @@ export default function TrustWalletPage() {
             }}>
               terms and conditions
             </span>{' '}
-            of use of the API service by Trust Wallet
+            of use of the AML service by Trust Wallet
           </p>
         </button>
 
