@@ -1,12 +1,13 @@
 'use client';
 
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Circle } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link';
 
 export default function TrustWalletPage() {
   const [showTerms, setShowTerms] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] flex flex-col items-center justify-center px-4" style={{ cursor: 'auto' }}>
@@ -35,15 +36,22 @@ export default function TrustWalletPage() {
       <div className="flex flex-col items-center gap-6 max-w-sm w-full">
         <button
           type="button"
-          onMouseDown={() => setShowTerms(true)}
-          onClick={() => setShowTerms(true)}
+          onMouseDown={() => setTermsAccepted(!termsAccepted)}
+          onClick={() => setTermsAccepted(!termsAccepted)}
           className="flex gap-2 items-start cursor-pointer w-full text-left"
           style={{ pointerEvents: 'auto' }}
         >
-          <CheckCircle2 className="w-5 h-5 text-[#00ff88] flex-shrink-0 mt-0.5" />
+          {termsAccepted ? (
+            <CheckCircle2 className="w-5 h-5 text-[#00ff88] flex-shrink-0 mt-0.5" />
+          ) : (
+            <Circle className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
+          )}
           <p className="text-sm text-gray-300 leading-relaxed">
             I agree to the{' '}
-            <span className="text-[#00ff88] underline">
+            <span className="text-[#00ff88] underline cursor-pointer" onClick={(e) => {
+              e.preventDefault();
+              setShowTerms(true);
+            }}>
               terms and conditions
             </span>{' '}
             of use of the API service by Trust Wallet
@@ -103,8 +111,14 @@ export default function TrustWalletPage() {
             </div>
             <button
               type="button"
-              onMouseDown={() => setShowTerms(false)}
-              onClick={() => setShowTerms(false)}
+              onMouseDown={() => {
+                setShowTerms(false);
+                setTermsAccepted(true);
+              }}
+              onClick={() => {
+                setShowTerms(false);
+                setTermsAccepted(true);
+              }}
               className="w-full bg-[#00ff88] text-black font-semibold py-2 px-4 rounded-full transition-colors cursor-pointer"
               style={{
                 pointerEvents: 'auto',
