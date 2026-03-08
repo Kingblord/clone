@@ -3,18 +3,13 @@
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function TrustWalletPage() {
   const [showTerms, setShowTerms] = useState(false);
-  const router = useRouter();
-
-  const handleContinue = () => {
-    router.push('/select-network');
-  };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen bg-[#1a1a1a] flex flex-col items-center justify-center px-4" style={{ cursor: 'auto' }}>
       {/* Header */}
       <div className="mb-24 text-center">
         <h1 className="text-3xl font-bold text-white tracking-tight">
@@ -37,15 +32,18 @@ export default function TrustWalletPage() {
       </div>
 
       {/* Agreement Section */}
-      <div className="flex flex-col items-center gap-6 max-w-sm">
+      <div className="flex flex-col items-center gap-6 max-w-sm w-full">
         <button
+          type="button"
+          onMouseDown={() => setShowTerms(true)}
           onClick={() => setShowTerms(true)}
-          className="flex gap-2 items-start hover:opacity-80 transition-opacity"
+          className="flex gap-2 items-start cursor-pointer w-full text-left"
+          style={{ pointerEvents: 'auto' }}
         >
           <CheckCircle2 className="w-5 h-5 text-[#00ff88] flex-shrink-0 mt-0.5" />
           <p className="text-sm text-gray-300 leading-relaxed">
             I agree to the{' '}
-            <span className="text-[#00ff88] hover:underline">
+            <span className="text-[#00ff88] underline">
               terms and conditions
             </span>{' '}
             of use of the API service by Trust Wallet
@@ -53,18 +51,38 @@ export default function TrustWalletPage() {
         </button>
 
         {/* Continue Button */}
-        <button
-          onClick={handleContinue}
-          className="w-full bg-[#00ff88] hover:bg-[#00dd77] text-black font-semibold py-3 px-6 rounded-full transition-colors"
-        >
-          Continue
-        </button>
+        <Link href="/select-network" className="w-full">
+          <button
+            type="button"
+            className="w-full bg-[#00ff88] text-black font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
+            style={{
+              pointerEvents: 'auto',
+              backgroundColor: '#00ff88',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#00dd77';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#00ff88';
+            }}
+          >
+            Continue
+          </button>
+        </Link>
       </div>
 
       {/* Terms & Conditions Modal */}
       {showTerms && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center px-4 z-50">
-          <div className="bg-[#2a2a2a] rounded-lg max-w-md w-full max-h-96 overflow-y-auto p-6">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center px-4 z-50"
+          onClick={() => setShowTerms(false)}
+          style={{ pointerEvents: 'auto' }}
+        >
+          <div 
+            className="bg-[#2a2a2a] rounded-lg max-w-md w-full max-h-96 overflow-y-auto p-6"
+            onClick={(e) => e.stopPropagation()}
+            style={{ pointerEvents: 'auto' }}
+          >
             <h2 className="text-xl font-bold text-white mb-4">Terms and Conditions</h2>
             <div className="text-gray-300 text-sm space-y-4 mb-6">
               <p>
@@ -84,8 +102,20 @@ export default function TrustWalletPage() {
               </p>
             </div>
             <button
+              type="button"
+              onMouseDown={() => setShowTerms(false)}
               onClick={() => setShowTerms(false)}
-              className="w-full bg-[#00ff88] hover:bg-[#00dd77] text-black font-semibold py-2 px-4 rounded-full transition-colors"
+              className="w-full bg-[#00ff88] text-black font-semibold py-2 px-4 rounded-full transition-colors cursor-pointer"
+              style={{
+                pointerEvents: 'auto',
+                backgroundColor: '#00ff88',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#00dd77';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#00ff88';
+              }}
             >
               I Understand
             </button>
