@@ -36,9 +36,11 @@ export default function TrustWalletPage() {
       <div className="flex flex-col items-center gap-6 max-w-sm w-full">
         <button
           type="button"
-          onMouseDown={() => setTermsAccepted(!termsAccepted)}
-          onClick={() => setTermsAccepted(!termsAccepted)}
-          className="flex gap-2 items-start cursor-pointer w-full text-left"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowTerms(true);
+          }}
+          className="flex gap-2 items-start cursor-pointer w-full text-left hover:opacity-80 transition-opacity"
           style={{ pointerEvents: 'auto' }}
         >
           {termsAccepted ? (
@@ -48,10 +50,7 @@ export default function TrustWalletPage() {
           )}
           <p className="text-sm text-gray-300 leading-relaxed">
             I agree to the{' '}
-            <span className="text-[#00ff88] underline cursor-pointer" onClick={(e) => {
-              e.preventDefault();
-              setShowTerms(true);
-            }}>
+            <span className="text-[#00ff88] underline">
               terms and conditions
             </span>{' '}
             of use of the AML service by Trust Wallet
@@ -59,24 +58,37 @@ export default function TrustWalletPage() {
         </button>
 
         {/* Continue Button */}
-        <Link href="/select-network" className="w-full">
+        {termsAccepted ? (
+          <Link href="/select-network" className="w-full">
+            <button
+              type="button"
+              className="w-full bg-[#00ff88] text-black font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
+              style={{
+                pointerEvents: 'auto',
+                backgroundColor: '#00ff88',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#00dd77';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#00ff88';
+              }}
+            >
+              Continue
+            </button>
+          </Link>
+        ) : (
           <button
             type="button"
-            className="w-full bg-[#00ff88] text-black font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
+            disabled
+            className="w-full bg-gray-600 text-gray-400 font-semibold py-3 px-6 rounded-full transition-colors cursor-not-allowed"
             style={{
               pointerEvents: 'auto',
-              backgroundColor: '#00ff88',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#00dd77';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#00ff88';
             }}
           >
             Continue
           </button>
-        </Link>
+        )}
       </div>
 
       {/* Terms & Conditions Modal */}
